@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">C2GPSLocationTest</string>
+    <string name="action_settings">Settings</string>
+    <string name="btn_location">Location</string>
+    <string name="location_test">Location Test</string>
+    <string name="toggle_wifi">Toggle Wifi</string>
+    <string name="connect_wifi">Connect To Wifi</string>
+    <string name="wifi_test">Wifi Test</string>
+    <string name="button_bluetooth">Bluetooth</string>
+    <string name="bluetooth_test">Bluetooth Test</string>
+    <string name="reset_statuses">Reset Statuses</string>
+    <string name="location_status_result">"Your coordinates are (%1$s, %2$s)"</string>
+    <string name="location_status_unavailable">Your location/GPS provider is enabled, but your location cannot be determined</string>
+    <string name="wifi_status">Your wifi is now disabled.</string>
+    <string name="wifi_status_connected">"Your wifi is toggled on. You are connected to: "</string>
+    <string name="wifi_status_disconnected">Your wifi is toggled on, but you are not connected to a network.</string>
+    <string name="wifi_status_already_enabled">Your wifi is already enabled.</string>
+    <string name="bluetooth_enabled">Your bluetooth is enabled.</string>
+    <string name="location_status_enabled">Your GPS/location is enabled.</string>
+    <string name="try_again">Please try again.</string>
+    <string name="wifi_status_enabled">Your wifi is enabled.</string>
+</resources>
