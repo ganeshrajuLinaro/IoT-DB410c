@@ -80,16 +80,12 @@ public class ConnectivityTestActivity extends ActionBarActivity {
 
         if (wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(false);
-            wifiStatus.setText(R.string.wifi_status);
+            wifiStatus.setText(R.string.wifi_status_disabled);
         } else {
             WifiInfo wifiInfo = wifiManager.getConnectionInfo();
             wifiManager.setWifiEnabled(true);
+            wifiStatus.setText(R.string.wifi_status_enabled);
 
-            if (wifiInfo != null) {
-                wifiStatus.setText(getString(R.string.wifi_status_connected, wifiInfo.getSSID()));
-            } else {
-                wifiStatus.setText(R.string.wifi_status_disconnected);
-            }
         }
     }
 
@@ -97,11 +93,17 @@ public class ConnectivityTestActivity extends ActionBarActivity {
     public void connectWifiNetwork(View v) {
         WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 
-        if (wifiManager.isWifiEnabled()) {
-            wifiStatus.setText(R.string.wifi_status_already_enabled);
+        if (!wifiManager.isWifiEnabled()) {
+            wifiStatus.setText(R.string.wifi_enable_wifi);
         } else {
-            Intent wifiIntent  = new Intent(Settings.ACTION_WIFI_SETTINGS);
-            startActivityForResult(wifiIntent, REQUEST_WIFI);
+            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+            if (wifiInfo != null) {
+                wifiStatus.setText(getString(R.string.wifi_status_connected, wifiInfo.getSSID()));
+            } else {
+                wifiStatus.setText(R.string.wifi_status_disconnected);
+                Intent wifiIntent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivityForResult(wifiIntent, REQUEST_WIFI);
+            }
         }
     }
 
@@ -110,11 +112,17 @@ public class ConnectivityTestActivity extends ActionBarActivity {
 
         BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        if (btAdapter.isEnabled()) {
-            bluetoothStatus.setText(R.string.bluetooth_enabled);
-        } else {
+        if (!btAdapter.isEnabled()) {
             Intent btIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(btIntent, REQUEST_BLUETOOTH);
+            if (btAdapter.isEnabled()) {
+                bluetoothStatus.setText(R.string.bluetooth_status_enabled);
+            } else {
+                bluetoothStatus.setText(R.string.bluetooth_status_disabled);
+            }
+        } else {
+            btAdapter.disable();
+            bluetoothStatus.setText(R.string.bluetooth_status_disabled);
         }
     }
 
@@ -140,7 +148,7 @@ public class ConnectivityTestActivity extends ActionBarActivity {
                 break;
             case REQUEST_BLUETOOTH:
                 if (resultCode == Activity.RESULT_OK) {
-                    bluetoothStatus.setText(R.string.bluetooth_enabled);
+                    bluetoothStatus.setText(R.string.bluetooth_status_enabled);
                 } else {
                     bluetoothStatus.setText(R.string.try_again);
                 }
