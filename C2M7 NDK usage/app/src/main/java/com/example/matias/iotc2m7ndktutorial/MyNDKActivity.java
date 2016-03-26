@@ -11,6 +11,10 @@ import android.view.MenuItem;
 
 public class MyNDKActivity extends AppCompatActivity {
 
+    static {
+        System.loadLibrary("ndkApplication");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,4 +53,7 @@ public class MyNDKActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public native String getStringFromNDK();
 }
